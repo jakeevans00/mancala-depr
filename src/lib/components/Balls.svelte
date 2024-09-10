@@ -8,21 +8,8 @@
   let balls = Array(count).fill(null);
 </script>
 
-<style>
-  .balls-container {
-    position: relative;
-    width: 30px; 
-    height: 30px; 
-  }
 
-  .ball-wrapper {
-    position: absolute;
-    width: 20px; 
-    height: 20px; 
-  }
-</style>
-
-<div class="balls-container">
+<div class="h-2/3 w-2/3">
   {#each balls as index}
     <div class="ball-wrapper" style="
         top: {Math.random() * 100}%; 

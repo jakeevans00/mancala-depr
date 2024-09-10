@@ -6,8 +6,10 @@
 
 <div class="h-screen px-4 py-2 flex flex-col justify-between">
   <Header />
-  <main>
-    <slot/>
-  </main>
+  <div class="flex justify-center w-full">
+    <main >
+      <slot/>
+    </main>
+  </div>
   <Footer/>
 </div>

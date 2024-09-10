@@ -1,7 +1,6 @@
 <script>
   import Balls from "$lib/components/Balls.svelte";
   
-
   let showTooltip = false;
 </script>
 
@@ -9,14 +8,14 @@
   .cup {
     border-radius: 50%;
     background: white;
-    height: 50px;
-    width: 50px;
+    height: 100%;
+  
   }
 
   .cup:hover {
     background: #fef9c3;
   }
-  .tooltip-container {
+  /* .tooltip-container {
     position: relative;
     display: inline-block;
     z-index: 200;
@@ -32,12 +31,10 @@
     padding: 5px 10px;
     border-radius: 4px;
     white-space: nowrap;
-  }
+  } */
 </style>
 
-<div class="tooltip-container"
-     on:mouseenter={() => showTooltip = true}
-     on:mouseleave={() => showTooltip = false}>
+<div class="w-12 md:w-[90px]">
   <div class="cup" >
     <Balls count={4} />
   </div>
