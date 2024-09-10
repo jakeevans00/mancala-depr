@@ -1,27 +1,29 @@
 <script>
   import Collector from "$lib/components/Collector.svelte";
   import Cup from "$lib/components/Cup.svelte";
+
+  let cups = [
+    { id: 1, count: 1 },
+    { id: 2, count: 2 },
+    { id: 3, count: 3 },
+    { id: 4, count: 4 },
+    { id: 5, count: 5 },
+    { id: 6, count: 6 },
+    { id: 7, count: 4 },
+    { id: 8, count: 3 },
+    { id: 9, count: 4 },
+    { id: 10, count: 2 },
+    { id: 11, count: 3 },
+    { id: 12, count: 0 }
+  ];
 </script>
 
 <div class="grid grid-cols-[1fr_6fr_1fr] bg-[rgb(181,122,83)] p-5 h-full rounded-xl max-w-[1000px]">
-  <Collector />
-    <div class="grid grid-cols-6 grid-rows-2 gap-4 p-4">
-      <Cup>Cup 1</Cup>
-      <Cup>Cup 2</Cup>
-      <Cup>Cup 3</Cup>
-      <Cup>Cup 4</Cup>
-      <Cup>Cup 5</Cup>
-      <Cup>Cup 6</Cup>
-
-      <Cup>Cup 7</Cup>
-      <Cup>Cup 8</Cup>
-      <Cup>Cup 9</Cup>
-      <Cup>Cup 10</Cup>
-      <Cup>Cup 11</Cup>
-      <Cup>Cup 12</Cup>
-  </div>
-  
-  <Collector />
+  <Collector team={"top"}/>
+    <div class="grid grid-cols-6 grid-rows-2 gap-4 px-4">
+      {#each cups as { id, count }}
+        <Cup id={id} count={count} />
+      {/each}
+    </div>
+  <Collector team={"bottom"} />
 </div>
-
-

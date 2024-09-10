@@ -1,7 +1,6 @@
 <script>
   export let colors = ['blue', 'green', 'red', 'purple', 'orange']
-  
-  export let size = '50px'; 
+  export let size;
 
   const getRandomColor = () => {
         const randomIndex = Math.floor(Math.random() * colors.length);
