@@ -4,12 +4,13 @@
   export let count = 2;
   export let isCollector = false;
   export let team;
+  export let id;
 
   let showTooltip = false;
   let hideTooltipTimeout;
 
   const cupStyles = "bg-white flex items-center justify-center rounded-full w-[50px] md:w-[90px] hover:bg-yellow-100";
-  const collectorStyles = `bg-white w-full md:h-[300px] ${team === "top" ? 'rounded-tl-full rounded-bl-full' : ' rounded-tr-full rounded-br-full'} flex items-center justify-center`;
+  const collectorStyles = `bg-white w-full md:h-[300px] ${team === "top" ? 'rounded-tl-full rounded-bl-full' : ' rounded-tr-full rounded-br-full'} flex items-center justify-center hover:bg-yellow-100`;
 
   function show() {
     clearTimeout(hideTooltipTimeout);
@@ -33,7 +34,7 @@
 >
   {#if showTooltip}
     <div class="text-black">
-      {count}
+      {id}:{count}
     </div>
   {:else}
     <Balls count={count} />

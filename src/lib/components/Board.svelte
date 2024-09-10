@@ -1,5 +1,4 @@
 <script>
-  import Collector from "$lib/components/Collector.svelte";
   import Cup from "$lib/components/Cup.svelte";
 
   let cups = [
@@ -16,6 +15,11 @@
     { id: 11, count: 3 },
     { id: 12, count: 0 }
   ];
+
+  const makeMove = (e) => {
+
+  };
+
 </script>
 
 <div class="grid grid-cols-[1fr_6fr_1fr] bg-[rgb(181,122,83)] p-5 h-full rounded-xl max-w-[1000px]">
