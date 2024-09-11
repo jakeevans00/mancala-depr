@@ -4,7 +4,9 @@
     validateMove,
     isDoubleMove,
     isStealMove,
-  } from "$lib/utils/GamePlay.js";
+    oppositeIndex,
+    indexOf,
+  } from "$lib/utils/GameRules.js";
 
   export let turn = "top";
 
@@ -34,7 +36,7 @@
 
   async function updateBoard(cupId) {
     if (!validateMove(turn, cupId, cups)) return;
-    let cupIndex = cups.findIndex((cup) => cup.id === cupId);
+    let cupIndex = indexOf(cupId, cups);
     let ballCount = cups[cupIndex].count;
 
     cups[cupIndex].count -= 1;
@@ -49,8 +51,20 @@
       if ((cupId + i) % 14 === 0) bottomCollector.count += 1;
     }
 
-    if (isStealMove(cupId, ballCount)) {
+    let endingIndex = (cupId + ballCount) % 14;
+    console.log(cupId);
+    console.log(endingIndex);
+    if (isStealMove(cupId, ballCount, cups)) {
       console.log("steal");
+      if (turn === "top") {
+        topCollector.count +=
+          cups[indexOf(oppositeIndex(endingIndex), cups)].count + 1;
+      } else {
+        bottomCollector.count +=
+          cups[indexOf(oppositeIndex(endingIndex), cups)].count + 1;
+      }
+      cups[indexOf(oppositeIndex(endingIndex), cups)].count = 0;
+      cups[indexOf(endingIndex, cups)].count = 0;
     }
 
     updateTrigger += 1;

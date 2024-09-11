@@ -27,10 +27,6 @@
     }, 100);
   }
 
-  afterUpdate(() => {
-    console.log(`Cup ${id} updated, count ${count}`);
-  });
-
   $: ballsKey = `${id}-${count}-${updateTrigger}`;
 </script>
 
