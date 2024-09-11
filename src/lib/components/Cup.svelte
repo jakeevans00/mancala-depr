@@ -5,6 +5,7 @@
   export let isCollector = false;
   export let team;
   export let id;
+  export let onClick;
 
   let showTooltip = false;
   let hideTooltipTimeout;
@@ -22,13 +23,17 @@
       showTooltip = false;
     }, 100); // Adjust this delay to your preference
   }
+
+
 </script>
 
 <div class={isCollector ? collectorStyles : cupStyles}
-  on:mouseenter={show} 
+  on:mouseover={show} 
   on:mouseleave={hide}
   on:focus={show} 
   on:blur={hide}
+  on:click={() => onClick(id)} 
+  on:keydown={() => onClick(id)}
   role="button"
   tabindex="0"
 >

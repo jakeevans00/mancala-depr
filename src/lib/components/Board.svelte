@@ -1,6 +1,8 @@
 <script>
   import Cup from "$lib/components/Cup.svelte";
 
+  let leftCollector;
+  let rightCollector;
   let cups = [
     { id: 1, count: 1 },
     { id: 2, count: 2 },
@@ -16,9 +18,28 @@
     { id: 12, count: 0 }
   ];
 
-  const makeMove = (e) => {
+export let turn = "top";
 
-  };
+const changeTurn = () => {
+  if (turn === "top") {
+    turn = "bottom";
+  } else {
+    turn = "bottom";
+  }
+}
+
+const makeMove = () => {
+  console.log(turn);
+  changeTurn();
+};
+
+function updateBoard(cupId) {
+  cups = cups.map(cup =>
+    cup.id === cupId ? { ...cup, count:cup.count + 1} : cup
+  );
+}
+
+  
 
 </script>
 
@@ -26,8 +47,8 @@
   <Cup team={"top"} id={0} count={0} isCollector={true}/>
     <div class="grid grid-cols-6 grid-rows-2 gap-4 px-4">
       {#each cups as { id, count }}
-        <Cup id={id} count={count} />
+        <Cup id={id} count={count} onClick={updateBoard} />
       {/each}
     </div>
-  <Cup team={"bottom"} id={0} count={0} isCollector={true}/>
+  <Cup team={"bottom"} id={13} count={0} isCollector={true}/>
 </div>
