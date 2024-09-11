@@ -36,10 +36,10 @@
 
   async function updateBoard(cupId) {
     if (!validateMove(turn, cupId, cups)) return;
+
     let cupIndex = indexOf(cupId, cups);
     let ballCount = cups[cupIndex].count;
-
-    cups[cupIndex].count -= 1;
+    cups[cupIndex].count = 0;
 
     for (let i = 1; i <= ballCount; i++) {
       let tmpIndex = cups.findIndex((cup) => cup.id === (cupId + i) % 14);
@@ -52,10 +52,7 @@
     }
 
     let endingIndex = (cupId + ballCount) % 14;
-    console.log(cupId);
-    console.log(endingIndex);
     if (isStealMove(cupId, ballCount, cups)) {
-      console.log("steal");
       if (turn === "top") {
         topCollector.count +=
           cups[indexOf(oppositeIndex(endingIndex), cups)].count + 1;
@@ -77,9 +74,7 @@
   }
 </script>
 
-<div
-  class="grid grid-cols-[1fr_6fr_1fr] bg-[rgb(186,86,36)] p-5 h-full rounded-xl max-w-[1000px]"
->
+<div class="grid grid-cols-[1fr_6fr_1fr] bg-[rgb(186,86,36)] p-6 rounded-xl">
   <Cup
     bind:count={topCollector.count}
     team={topCollector.team}

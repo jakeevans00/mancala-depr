@@ -13,8 +13,8 @@
   let hideTooltipTimeout;
 
   const cupStyles =
-    "bg-white flex items-center justify-center rounded-full w-[50px] md:w-[90px] hover:bg-yellow-100";
-  const collectorStyles = `bg-white w-full min-h-[300px] ${team === "top" ? "rounded-tl-full rounded-bl-full" : " rounded-tr-full rounded-br-full"} flex items-center justify-center hover:bg-yellow-100`;
+    "bg-white flex items-center justify-center rounded-full w-[50px] md:w-[75px] lg:w-[100px] hover:bg-yellow-400 transition-width transition-slowest ease";
+  const collectorStyles = `bg-black w-full h-[200px] md:h-[300px] lg:h-[370px] ${team === "top" ? "rounded-tl-full rounded-bl-full" : " rounded-tr-full rounded-br-full"} flex items-center justify-center hover:bg-teal-400 transition-height transition-slowest ease`;
 
   function show() {
     clearTimeout(hideTooltipTimeout);

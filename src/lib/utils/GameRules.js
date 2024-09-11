@@ -21,7 +21,6 @@ export const isDoubleMove = (cupId, ballCount) => {
 };
 
 export const oppositeIndex = (cupId, cups) => {
-  console.log(cupId);
   return 14 - cupId;
 };
 

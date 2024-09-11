@@ -1,23 +1,12 @@
 <script>
-  export let colors = ['blue', 'green', 'red', 'purple', 'orange']
+  export let colors = ["#9cc5a1", "#49a078", "#216869", "#1f2421"];
   export let size;
 
   const getRandomColor = () => {
-        const randomIndex = Math.floor(Math.random() * colors.length);
+    const randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
-  }
+  };
 </script>
-
-<style>
-  .ball {
-    border-radius: 50%;
-    border: solid 1px white;
-    display: inline-block;
-    background-color: var(--color);
-    width: var(--size);
-    height: var(--size);
-  }
-</style>
 
 <div
   class="ball"
@@ -26,3 +15,13 @@
     --size: {size};
   "
 ></div>
+
+<style>
+  .ball {
+    border-radius: 50%;
+    display: inline-block;
+    background-color: var(--color);
+    width: var(--size);
+    height: var(--size);
+  }
+</style>
