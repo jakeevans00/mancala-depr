@@ -1,54 +1,82 @@
 <script>
   import Cup from "$lib/components/Cup.svelte";
+  import { validateMove } from "$lib/utils/GamePlay.js";
 
-  let leftCollector;
-  let rightCollector;
+  export let turn = "top";
+
+  let topCollector = { id: 7, count: 0, team: "top" };
+  let bottomCollector = { id: 14, count: 0, team: "bottom" };
+
   let cups = [
-    { id: 1, count: 1 },
-    { id: 2, count: 2 },
-    { id: 3, count: 3 },
-    { id: 4, count: 4 },
-    { id: 5, count: 5 },
-    { id: 6, count: 0 },
-    { id: 7, count: 4 },
-    { id: 8, count: 3 },
-    { id: 9, count: 4 },
-    { id: 10, count: 2 },
-    { id: 11, count: 3 },
-    { id: 12, count: 0 }
+    { id: 6, count: 4, team: "top" },
+    { id: 5, count: 4, team: "top" },
+    { id: 4, count: 4, team: "top" },
+    { id: 3, count: 4, team: "top" },
+    { id: 2, count: 4, team: "top" },
+    { id: 1, count: 4, team: "top" },
+    { id: 8, count: 4, team: "bottom" },
+    { id: 9, count: 4, team: "bottom" },
+    { id: 10, count: 4, team: "bottom" },
+    { id: 11, count: 4, team: "bottom" },
+    { id: 12, count: 4, team: "bottom" },
+    { id: 13, count: 4, team: "bottom" },
   ];
 
-export let turn = "top";
+  let updateTrigger = 0;
 
-const changeTurn = () => {
-  if (turn === "top") {
-    turn = "bottom";
-  } else {
-    turn = "bottom";
+  function updateTurn() {
+    turn = turn === "top" ? "bottom" : "top";
   }
-}
 
-const makeMove = () => {
-  console.log(turn);
-  changeTurn();
-};
+  async function updateBoard(cupId) {
+    if (!validateMove(turn, cupId, cups)) return;
+    let cupIndex = cups.findIndex((cup) => cup.id === cupId);
+    let ballCount = cups[cupIndex].count;
 
-function updateBoard(cupId) {
-  cups = cups.map(cup =>
-    cup.id === cupId ? { ...cup, count:cup.count + 1} : cup
-  );
-}
+    cups[cupIndex].count -= 1;
 
-  
+    for (let i = 1; i <= ballCount; i++) {
+      let tmpIndex = cups.findIndex((cup) => cup.id === (cupId + i) % 14);
+      if (tmpIndex !== -1) {
+        cups[tmpIndex].count += 1;
+      } else if (cupId === 7 || cupId === 14) {
+      }
+    }
 
+    updateTrigger += 1;
+    cups = [...cups];
+    updateTurn();
+  }
 </script>
 
-<div class="grid grid-cols-[1fr_6fr_1fr] bg-[rgb(181,122,83)] p-5 h-full rounded-xl max-w-[1000px]">
-  <Cup team={"top"} id={0} count={0} isCollector={true}/>
-    <div class="grid grid-cols-6 grid-rows-2 gap-4 px-4">
-      {#each cups as { id, count }}
-        <Cup id={id} count={count} onClick={updateBoard} />
-      {/each}
-    </div>
-  <Cup team={"bottom"} id={13} count={0} isCollector={true}/>
+<div
+  class="grid grid-cols-[1fr_6fr_1fr] bg-[rgb(186,86,36)] p-5 h-full rounded-xl max-w-[1000px]"
+>
+  <Cup
+    team={topCollector.team}
+    id={topCollector.id}
+    count={topCollector.count}
+    isCollector={true}
+    {updateTrigger}
+    onClick={updateBoard}
+  />
+  <div class="grid grid-cols-6 grid-rows-2 gap-4 px-4">
+    {#each cups as cup (cup.id)}
+      <Cup
+        bind:count={cup.count}
+        id={cup.id}
+        team={cup.team}
+        onClick={updateBoard}
+        {updateTrigger}
+      />
+    {/each}
+  </div>
+  <Cup
+    team={bottomCollector.team}
+    id={bottomCollector.id}
+    count={bottomCollector.count}
+    isCollector={true}
+    {updateTrigger}
+    onClick={updateBoard}
+  />
 </div>

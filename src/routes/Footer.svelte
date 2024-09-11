@@ -1,3 +1,6 @@
+<script>
+</script>
+
 <footer class="text-xs flex justify-between">
   <p>@copyright</p>
   <ul class="flex gap-2">

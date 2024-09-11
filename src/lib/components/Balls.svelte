@@ -1,19 +1,16 @@
 <script>
-  import Ball from './Ball.svelte';
-  
-  export let size = '15px'; 
-  export let count = 4;
+  import Ball from "./Ball.svelte";
+  export let count;
+  export const key = undefined;
+  export let size = "15px";
 
-  let balls = Array(count).fill(null);
+  $: balls = Array(count).fill(0);
 </script>
 
-
-<div class="">
-  {#each balls as index}
-    <div class="" style="
-        top: {Math.random() * 100  }%; 
-        left: {Math.random() * 100 }%;">
-      <Ball size="{size}" /> 
-    </div>   
+<div class="relative w-full h-full">
+  {#each balls as _, i (i)}
+    <div class="">
+      <Ball {size} />
+    </div>
   {/each}
 </div>

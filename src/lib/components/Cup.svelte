@@ -1,17 +1,20 @@
 <script>
   import Balls from "$lib/components/Balls.svelte";
+  import { afterUpdate } from "svelte";
 
-  export let count = 2;
+  export let count = 4;
   export let isCollector = false;
   export let team;
   export let id;
   export let onClick;
+  export let updateTrigger;
 
   let showTooltip = false;
   let hideTooltipTimeout;
 
-  const cupStyles = "bg-white flex items-center justify-center rounded-full w-[50px] md:w-[90px] hover:bg-yellow-100";
-  const collectorStyles = `bg-white w-full md:h-[300px] ${team === "top" ? 'rounded-tl-full rounded-bl-full' : ' rounded-tr-full rounded-br-full'} flex items-center justify-center hover:bg-yellow-100`;
+  const cupStyles =
+    "bg-white flex items-center justify-center rounded-full w-[50px] md:w-[90px] hover:bg-yellow-100";
+  const collectorStyles = `bg-white w-full md:h-[300px] ${team === "top" ? "rounded-tl-full rounded-bl-full" : " rounded-tr-full rounded-br-full"} flex items-center justify-center hover:bg-yellow-100`;
 
   function show() {
     clearTimeout(hideTooltipTimeout);
@@ -21,27 +24,32 @@
   function hide() {
     hideTooltipTimeout = setTimeout(() => {
       showTooltip = false;
-    }, 100); // Adjust this delay to your preference
+    }, 100);
   }
 
+  afterUpdate(() => {
+    console.log(`Cup ${id} updated, count ${count}`);
+  });
 
+  $: ballsKey = `${id}-${count}-${updateTrigger}`;
 </script>
 
-<div class={isCollector ? collectorStyles : cupStyles}
-  on:mouseover={show} 
+<div
+  class={isCollector ? collectorStyles : cupStyles}
+  on:mouseover={show}
   on:mouseleave={hide}
-  on:focus={show} 
+  on:focus={show}
   on:blur={hide}
-  on:click={() => onClick(id)} 
+  on:click={() => onClick(id)}
   on:keydown={() => onClick(id)}
   role="button"
   tabindex="0"
 >
   {#if showTooltip}
     <div class="text-black">
-      {id}:{count}
+      {count}
     </div>
   {:else}
-    <Balls count={count} />
+    <Balls {count} key={ballsKey} />
   {/if}
 </div>
