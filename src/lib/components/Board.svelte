@@ -1,11 +1,15 @@
 <script>
   import Cup from "$lib/components/Cup.svelte";
-  import { validateMove } from "$lib/utils/GamePlay.js";
+  import {
+    validateMove,
+    isDoubleMove,
+    isStealMove,
+  } from "$lib/utils/GamePlay.js";
 
   export let turn = "top";
 
   let topCollector = { id: 7, count: 0, team: "top" };
-  let bottomCollector = { id: 14, count: 0, team: "bottom" };
+  let bottomCollector = { id: 0, count: 0, team: "bottom" };
 
   let cups = [
     { id: 6, count: 4, team: "top" },
@@ -39,12 +43,22 @@
       let tmpIndex = cups.findIndex((cup) => cup.id === (cupId + i) % 14);
       if (tmpIndex !== -1) {
         cups[tmpIndex].count += 1;
-      } else if (cupId === 7 || cupId === 14) {
       }
+
+      if ((cupId + i) % 14 === 7) topCollector.count += 1;
+      if ((cupId + i) % 14 === 0) bottomCollector.count += 1;
+    }
+
+    if (isStealMove(cupId, ballCount)) {
+      console.log("steal");
     }
 
     updateTrigger += 1;
     cups = [...cups];
+    topCollector = { ...topCollector };
+    bottomCollector = { ...bottomCollector };
+
+    if (isDoubleMove(cupId, ballCount)) return;
     updateTurn();
   }
 </script>
@@ -53,9 +67,9 @@
   class="grid grid-cols-[1fr_6fr_1fr] bg-[rgb(186,86,36)] p-5 h-full rounded-xl max-w-[1000px]"
 >
   <Cup
+    bind:count={topCollector.count}
     team={topCollector.team}
     id={topCollector.id}
-    count={topCollector.count}
     isCollector={true}
     {updateTrigger}
     onClick={updateBoard}

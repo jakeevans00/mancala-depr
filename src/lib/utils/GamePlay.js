@@ -6,3 +6,9 @@ export const validateMove = (turn, cupId, cups) => {
 
   return (turn === "top" && cupId <= 6) || (turn === "bottom" && cupId >= 7);
 };
+
+export const isStealMove = () => {};
+
+export const isDoubleMove = (cupId, ballCount) => {
+  return (cupId + ballCount) % 14 === 7 || (cupId + ballCount) % 14 === 0;
+};

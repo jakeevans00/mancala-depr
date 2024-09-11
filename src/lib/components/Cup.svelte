@@ -14,7 +14,7 @@
 
   const cupStyles =
     "bg-white flex items-center justify-center rounded-full w-[50px] md:w-[90px] hover:bg-yellow-100";
-  const collectorStyles = `bg-white w-full md:h-[300px] ${team === "top" ? "rounded-tl-full rounded-bl-full" : " rounded-tr-full rounded-br-full"} flex items-center justify-center hover:bg-yellow-100`;
+  const collectorStyles = `bg-white w-full min-h-[300px] ${team === "top" ? "rounded-tl-full rounded-bl-full" : " rounded-tr-full rounded-br-full"} flex items-center justify-center hover:bg-yellow-100`;
 
   function show() {
     clearTimeout(hideTooltipTimeout);

@@ -7,7 +7,7 @@
   $: balls = Array(count).fill(0);
 </script>
 
-<div class="relative w-full h-full">
+<div class="">
   {#each balls as _, i (i)}
     <div class="">
       <Ball {size} />
